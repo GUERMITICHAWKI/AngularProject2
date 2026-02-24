@@ -1,18 +1,19 @@
-nav a
-{
-text-decoration: none;
-display:inline-block;
-margin : 0px;
-padding:5px;
-border-right: navy 1px solid;}
-nav
-{
-background-color: #f8f8f8;
+nav a {
+    text-decoration: none;
+    display: inline-block;
+    margin: 0px;
+    padding: 5px;
+    border-right: navy 1px solid;
 }
-a:active
-{
-color:black;
+
+nav {
+    background-color: #f8f8f8;
 }
+
+a:active {
+    color: black;
+}
+
 .active {
-background-color : red
+    background-color: red
 }

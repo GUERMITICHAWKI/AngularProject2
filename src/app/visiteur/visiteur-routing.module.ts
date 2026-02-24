@@ -5,10 +5,10 @@ import { AproposComponent } from './apropos/apropos.component';
 import { HomeVisiteurComponent } from './home-visiteur/home-visiteur.component';
 
 const routes: Routes = [{ path: '', component: VisiteurComponent,
-children: [
-  {path: 'apropos', component: AproposComponent },
-  {path: 'home-visiteur', component: HomeVisiteurComponent },
-]
+  children: [
+    {path: 'apropos', component: AproposComponent},
+    {path: 'home-visiteur', component: HomeVisiteurComponent}
+  ]
  }];
 
 @NgModule({

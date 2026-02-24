@@ -1,1 +1,15 @@
-<p>home-visiteur works!</p>
+<h2>Liste des Films</h2>
+<div>
+  <ul>
+    <li *ngFor="let f of tabFilms; let index=index">
+
+      <span class="stylenom text-success"> {{ f.nom }} </span> <br>
+      <div *ngIf="f.descVisible" Class="bloc">{{ f.description }}</div>
+      <button (click)="affiche(f)" [ngClass]="{'boutonh':f.descVisible === true,
+'boutonv':f.descVisible === false}" class="btn btn-info">
+        plus d'info</button><br>
+      <button (click)="cacher(f)" [ngClass]="{'boutonh':f.descVisible === false,
+ 'boutonv':f.descVisible === true}" class="btn btn-info">moins d'info</button>
+    </li>
+  </ul>
+</div>
