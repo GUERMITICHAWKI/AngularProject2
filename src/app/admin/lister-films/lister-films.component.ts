@@ -11,32 +11,47 @@ import Swal from 'sweetalert2';
   templateUrl: './lister-films.component.html',
   styleUrl: './lister-films.component.css'
 })
-export class ListerFilmsComponent {
+export class ListerFilmsComponent implements OnInit {
+
   tabFilms: Film[] = [];
-  constructor(private filmsService: FilmsService) { }
+
+  constructor(private filmsService: FilmsService) {}
+
   ngOnInit(): void {
-    this.tabFilms = this.filmsService.getFilms();
+    this.chargerFilms();
   }
+
+  chargerFilms(): void {
+    // On inverse l'ordre pour afficher le plus récent en premier
+    this.tabFilms = this.filmsService.getFilms().slice().reverse();
+  }
+
   confirmAndDelete(index: number): void {
-      // Show SweetAlert2 confirmation dialog
-      Swal.fire({
-        title: 'Êtes-vous sûr ?',
-        text: 'Vous ne pourrez pas revenir en arrière!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Oui, supprimer!',
-        cancelButtonText: 'Non, annuler!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          this.supprimer(index);  // Delete the film if confirmed
-          Swal.fire('Supprimé!', 'Le film a été supprimé.', 'success');  // Show success message
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          Swal.fire('Annulé', 'Le film est toujours là :)', 'error');  // Show cancel message
-        }
-      });
-    }
-  supprimer(id: number) {
-    this.filmsService.delete(id);
-    this.tabFilms = this.filmsService.getFilms();
+
+    Swal.fire({
+      title: 'Êtes-vous sûr ?',
+      text: 'Vous ne pourrez pas revenir en arrière !',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e91e63',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Oui, supprimer !',
+      cancelButtonText: 'Annuler'
+    }).then((result) => {
+
+      if (result.isConfirmed) {
+
+        this.filmsService.delete(index);
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Supprimé !',
+          text: 'Le film a été supprimé avec succès.',
+          confirmButtonColor: '#e91e63'
+        });
+
+        this.chargerFilms(); // Rafraîchir la liste
+      }
+    });
   }
 }
